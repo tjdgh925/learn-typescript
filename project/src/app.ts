@@ -196,27 +196,27 @@ async function setupData() {
   setLastUpdatedTimestamp(data);
 }
 
-function renderChart(data: number[], labels: string[]) {
-  const lineChart = $('#lineChart') as HTMLCanvasElement;
-  const ctx = lineChart.getContext('2d');
-  Chart.defaults.global.defaultFontColor = '#f5eaea';
-  Chart.defaults.global.defaultFontFamily = 'Exo 2';
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [
-        {
-          label: 'Confirmed for the last two weeks',
-          backgroundColor: '#feb72b',
-          borderColor: '#feb72b',
-          data,
-        },
-      ],
-    },
-    options: {},
-  });
-}
+// function renderChart(data: number[], labels: string[]) {
+//   const lineChart = $('#lineChart') as HTMLCanvasElement;
+//   const ctx = lineChart.getContext('2d');
+//   Chart.defaults.global.defaultFontColor = '#f5eaea';
+//   Chart.defaults.global.defaultFontFamily = 'Exo 2';
+//   new Chart(ctx, {
+//     type: 'line',
+//     data: {
+//       labels,
+//       datasets: [
+//         {
+//           label: 'Confirmed for the last two weeks',
+//           backgroundColor: '#feb72b',
+//           borderColor: '#feb72b',
+//           data,
+//         },
+//       ],
+//     },
+//     options: {},
+//   });
+// }
 
 function setChartData(data: CountrySummaryResponse) {
   const chartData = data
@@ -227,7 +227,7 @@ function setChartData(data: CountrySummaryResponse) {
     .map((value: CountrySummaryInfo) =>
       new Date(value.Date).toLocaleDateString().slice(5, -1)
     );
-  renderChart(chartData, chartLabel);
+  // renderChart(chartData, chartLabel);
 }
 
 function setTotalConfirmedNumber(data: CovidSummaryResponse) {
