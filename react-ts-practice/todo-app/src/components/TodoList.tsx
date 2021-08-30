@@ -1,4 +1,6 @@
 import './TodoList.scss';
+import React, { useCallback } from 'react';
+import { List } from 'react-virtualized';
 import TodoListItem from './TodoListItem';
 interface TodoType {
   id: number;
@@ -12,18 +14,33 @@ interface TodoProps {
 }
 
 const TodoList = ({ todo, onRemove, onToggle }: TodoProps) => {
-  return (
-    <div className="TodoList">
-      {todo.map((todo) => (
+  const rowRenderer = useCallback(
+    ({ index, key, style }) => {
+      const todo2 = todo[index];
+      return (
         <TodoListItem
-          todo={todo}
-          key={todo.id}
+          todo={todo2}
+          key={key}
           onRemove={onRemove}
           onToggle={onToggle}
+          // style={style}
         />
-      ))}
-    </div>
+      );
+    },
+    [onRemove, onToggle, todo]
+  );
+  return (
+    <List
+      className="TodoList"
+      width={512}
+      height={512}
+      rowCount={todo.length}
+      rowHeight={57}
+      rowRenderer={rowRenderer}
+      list={todo}
+      // style={{ outline: 'none' }}
+    />
   );
 };
 
-export default TodoList;
+export default React.memo(TodoList);
