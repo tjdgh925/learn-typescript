@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../modules';
+import { RootState } from '../modules/index';
 import { increase, decrease, increasedBy } from '../modules/Counter';
 import Counter from '../components/Counter';
 const CounterContainer = () => {
