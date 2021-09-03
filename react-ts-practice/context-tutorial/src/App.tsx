@@ -4,6 +4,8 @@ import './App.css';
 import ColorBox from './components/ColorBox';
 import ColorContext, { ColorProvider } from './contexts/color';
 import SelectColors from './components/SelectColors';
+import { SampleProvider } from './SampleContext';
+// import ReducerSample from './ReducerSample';
 
 function App() {
   return (
@@ -15,6 +17,9 @@ function App() {
         </div>
       </ColorProvider>
     </div>
+    // <SampleProvider>
+    //   <ReducerSample />
+    // </SampleProvider>
   );
 }
 

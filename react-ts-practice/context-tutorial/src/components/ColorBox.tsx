@@ -1,9 +1,9 @@
 import { Value } from 'react-native-reanimated';
-import ColorContext, { ColorConsumer } from '../contexts/color';
+import ColorContext, { useSampleState } from '../contexts/color';
 import { useContext } from 'react';
 
 const ColorBox = () => {
-  const { state } = useContext(ColorContext);
+  const state = useSampleState();
   return (
     <>
       <div
