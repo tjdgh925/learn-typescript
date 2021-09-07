@@ -6,7 +6,7 @@ export const GET_USER_PROFILE = 'github/GET_USER_PROFILE';
 export const GET_USER_PROFILE_SUCCESS = 'github/GET_USER_PROFILE_SUCCESS';
 export const GET_USER_PROFILE_ERROR = 'github/GET_USER_PROFILE_ERROR';
 
-export const getUserProfiles = createAction(GET_USER_PROFILE)();
+export const getUserProfiles = createAction(GET_USER_PROFILE)<string>();
 export const getUserProfileSuccess = createAction(
   GET_USER_PROFILE_SUCCESS
 )<GithubProfile>();

@@ -15,7 +15,7 @@ export const getUserProfileThunk = (
     const request = getUserProfiles;
     const success = getUserProfileSuccess;
     const failure = getUserProfileError;
-    dispatch(request());
+    dispatch(request(username));
     try {
       const userProfile = await getUserProfile(username);
       dispatch(success(userProfile));
