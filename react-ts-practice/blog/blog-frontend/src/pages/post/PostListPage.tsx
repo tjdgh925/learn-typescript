@@ -1,4 +1,4 @@
-import Button from '../../components/common/Button';
+import Button from '@material-ui/core/Button';
 interface PostListPageProps {}
 
 const PostListPage = () => {
