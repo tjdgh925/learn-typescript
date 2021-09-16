@@ -13,8 +13,15 @@ import LockIcon from '@material-ui/icons/Lock';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-
-interface LoginPageProps {}
+import { useState, useCallback, FormEvent } from 'react';
+import { loginData, loginState } from '../../types/types';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useDispatch } from 'react-redux';
+import { login } from '../../modules/auth/login';
+interface LoginPageProps {
+  id: string;
+  password: string;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,6 +72,29 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const LoginPage = () => {
   const classes = useStyles();
+  const LoginPageState: loginState = useTypedSelector((state) => state.login);
+  const data = LoginPageState.data;
+  const error = LoginPageState.error;
+  const auth = LoginPageState.auth;
+  const dispatch = useDispatch();
+  const [loginInfo, setLoginInfo] = useState<loginData>({
+    username: '',
+    password: '',
+  });
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(login(loginInfo));
+  };
+  const onChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setLoginInfo({
+        ...loginInfo,
+        [name]: value,
+      });
+    },
+    [loginInfo]
+  );
   return (
     <Container className={classes.container}>
       <Card className={classes.card}>
@@ -72,8 +102,16 @@ const LoginPage = () => {
           CO-CO-BOB
         </Typography>
         <Container className={classes.form}>
-          <form id="login" placeholder="Email" autoComplete="off">
+          <form
+            id="login"
+            placeholder="Email"
+            autoComplete="off"
+            onSubmit={onSubmit}
+          >
             <TextField
+              name="username"
+              value={loginInfo.username}
+              onChange={onChange}
               fullWidth
               variant="outlined"
               InputProps={{
@@ -83,9 +121,11 @@ const LoginPage = () => {
                   </InputAdornment>
                 ),
               }}
-              type="email"
             />
             <TextField
+              name="password"
+              value={loginInfo.password}
+              onChange={onChange}
               fullWidth
               variant="outlined"
               InputProps={{
@@ -116,6 +156,7 @@ const LoginPage = () => {
           <Button
             fullWidth
             className={clsx(classes.button, classes.buttonSignUp)}
+            onClick={() => console.log(loginInfo)}
           >
             회원가입
           </Button>
