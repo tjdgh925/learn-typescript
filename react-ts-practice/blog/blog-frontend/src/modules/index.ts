@@ -18,6 +18,7 @@ function* rootSaga() {
   yield all([loginSaga()]);
 }
 const sagaMiddleware = createSagaMiddleware();
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: [...getDefaultMiddleware(), sagaMiddleware],

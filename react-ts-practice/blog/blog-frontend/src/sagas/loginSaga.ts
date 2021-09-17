@@ -11,7 +11,7 @@ function* tryLoginSaga(action: ReturnType<typeof login>) {
     const userData: loginData = yield call(logInAPI, action.payload);
     yield put(loginSuccess(true));
   } catch (e: any) {
-    yield put(loginSuccess(e));
+    yield put(loginFailure(e));
   }
 }
 

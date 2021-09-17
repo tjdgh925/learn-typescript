@@ -24,7 +24,7 @@ export const loginSlice = createSlice({
     loginSuccess(state, action: PayloadAction<boolean>) {
       state.error.loading = false;
       state.error.error = null;
-      state.auth = true;
+      state.auth = action.payload;
     },
     loginFailure(state, action: PayloadAction<AxiosError>) {
       state.error.loading = false;

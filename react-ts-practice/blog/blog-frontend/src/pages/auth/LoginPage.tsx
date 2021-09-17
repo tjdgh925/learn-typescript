@@ -13,15 +13,11 @@ import LockIcon from '@material-ui/icons/Lock';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { useState, useCallback, FormEvent } from 'react';
+import { useState, useCallback, FormEvent, useEffect } from 'react';
 import { loginData, loginState } from '../../types/types';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { login } from '../../modules/auth/login';
-interface LoginPageProps {
-  id: string;
-  password: string;
-}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -81,10 +77,24 @@ const LoginPage = () => {
     username: '',
     password: '',
   });
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login(loginInfo));
   };
+
+  useEffect(() => {
+    if (auth) {
+      console.log('성공');
+      console.log(data);
+      console.log(error);
+    }
+    if (error !== null) {
+      alert('실패!');
+      console.log(error);
+      return;
+    }
+  }, [auth, error]);
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;

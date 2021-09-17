@@ -6,9 +6,9 @@ export interface loginData {
 export interface signUpData {
   username: string;
   password: string;
-  nickname: string;
-  gender: any;
-  birthday: Date | null;
+  // nickname: string;
+  // gender: any;
+  // birthday: Date | null;
 }
 
 export interface errorData {
@@ -24,5 +24,6 @@ export interface loginState {
 
 export interface signUpState {
   error: errorData;
+  auth: boolean;
   data: signUpData | null;
 }
