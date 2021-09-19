@@ -18,12 +18,12 @@ export interface errorData {
 
 export interface loginState {
   error: errorData;
-  auth: boolean;
+  auth: boolean | null;
   data: loginData | null;
 }
 
 export interface signUpState {
   error: errorData;
-  auth: boolean;
+  auth: boolean | null;
   data: signUpData | null;
 }

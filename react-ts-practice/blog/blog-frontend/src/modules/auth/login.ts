@@ -7,7 +7,7 @@ const initialState: loginState = {
     loading: false,
     error: null,
   },
-  auth: false,
+  auth: null,
   data: null,
 };
 
@@ -18,7 +18,7 @@ export const loginSlice = createSlice({
     login(state, action: PayloadAction<loginData>) {
       state.error.loading = true;
       state.error.error = null;
-      state.auth = false;
+      state.auth = null;
       state.data = action.payload;
     },
     loginSuccess(state, action: PayloadAction<boolean>) {

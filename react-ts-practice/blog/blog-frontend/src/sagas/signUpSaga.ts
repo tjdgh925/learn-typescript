@@ -10,7 +10,7 @@ import axios from 'axios';
 function registerAPI(signUpData: signUpData) {
   return axios.post('/api/auth/register', signUpData);
 }
-function* tryLoginSaga(action: ReturnType<typeof register>) {
+function* trySignUpSaga(action: ReturnType<typeof register>) {
   try {
     const registerData: signUpData = yield call(registerAPI, action.payload);
     yield put(registerSuccess(true));
@@ -19,6 +19,6 @@ function* tryLoginSaga(action: ReturnType<typeof register>) {
   }
 }
 
-export function* loginSaga() {
-  yield takeEvery(register, tryLoginSaga);
+export function* signUpSaga() {
+  yield takeEvery(register, trySignUpSaga);
 }

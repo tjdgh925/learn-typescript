@@ -8,6 +8,7 @@ import loginReducer from './auth/login';
 import signUpReducer from './auth/signUp';
 import { all } from 'redux-saga/effects';
 import { loginSaga } from '../sagas/loginSaga';
+import { signUpSaga } from '../sagas/signUpSaga';
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -15,7 +16,7 @@ const rootReducer = combineReducers({
 });
 
 function* rootSaga() {
-  yield all([loginSaga()]);
+  yield all([loginSaga(), signUpSaga()]);
 }
 const sagaMiddleware = createSagaMiddleware();
 

@@ -7,7 +7,7 @@ const initialState: signUpState = {
     loading: false,
     error: null,
   },
-  auth: false,
+  auth: null,
   data: null,
 };
 
@@ -18,7 +18,7 @@ export const signUpSlice = createSlice({
     register(state, action: PayloadAction<signUpData>) {
       state.error.loading = true;
       state.error.error = null;
-      state.auth = false;
+      state.auth = null;
       state.data = action.payload;
     },
     registerSuccess(state, action: PayloadAction<boolean>) {

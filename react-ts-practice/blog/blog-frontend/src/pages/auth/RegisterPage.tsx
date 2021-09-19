@@ -1,18 +1,13 @@
+import { RouteComponentProps } from 'react-router-dom';
+
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-
-import PersonIcon from '@material-ui/icons/Person';
-import LockIcon from '@material-ui/icons/Lock';
+import Box from '@material-ui/core/Box';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import { useState, useCallback, FormEvent, useEffect } from 'react';
 import { signUpData, signUpState } from '../../types/types';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
@@ -25,7 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       flexWrap: 'wrap',
-      textAlign: 'center',
       justifyContent: 'center',
       minWidth: '750px',
       width: '50%',
@@ -34,18 +28,39 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       color: 'blue',
-      marginBottom: theme.spacing(8),
+      alignSelf: 'center',
     },
     card: {
       marginTop: theme.spacing(10),
       marginLeft: theme.spacing(10),
       marginRight: theme.spacing(10),
-      border: 'none',
+      paddingTop: theme.spacing(5),
+      paddingBottom: theme.spacing(5),
+      border: '1px solid black',
       boxShadow: 'none',
+    },
+    cardTitle: {
+      paddingBottom: theme.spacing(5),
+      paddingLeft: theme.spacing(3),
+    },
+    textInput: {
+      paddingBottom: theme.spacing(2),
+    },
+    passwordBox: {
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
+    },
+    buttonSignUp: {
+      color: 'white',
+      height: 50,
+      fontSize: 25,
+      backgroundColor: '#6E6B6F',
     },
   })
 );
-
+// interface RegisterPageProps {
+//   history: RouteComponentProps
+// }
 const RegisterPage = () => {
   const classes = useStyles();
   const SignUpPageState: signUpState = useTypedSelector(
@@ -60,9 +75,24 @@ const RegisterPage = () => {
     password: '',
   });
 
+  const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+  const checkPassword = (passwordConfirm: string): boolean => {
+    if (passwordConfirm === signUpInfo.password) return false;
+    else return true;
+  };
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(register(signUpInfo));
+    console.log(e);
+    // // const email = signUpInfo.username + '@catholic.ac.kr';
+    // console.log(signUpInfo.username + '@catholic.ac.kr');
+    dispatch(
+      register(
+        signUpInfo
+        // username: signUpInfo.username,
+        // // + '@catholic.ac.kr',
+        // password: signUpInfo.password,
+      )
+    );
   };
 
   useEffect(() => {
@@ -72,7 +102,7 @@ const RegisterPage = () => {
       console.log(error);
     }
     if (error !== null) {
-      alert('실패!');
+      if (error.error?.message !== undefined) alert(error.error?.message);
       console.log(error);
       return;
     }
@@ -81,67 +111,79 @@ const RegisterPage = () => {
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;
+      if (name === 'passwordConfirm') {
+        setPasswordConfirm(value);
+      }
       setSignUpInfo({
         ...signUpInfo,
         [name]: value,
       });
     },
-    [signUpInfo]
+    [signUpInfo, passwordConfirm]
   );
   return (
     <Container className={classes.container}>
-      <Card className={classes.card}>
-        <Typography variant="h2" className={classes.title}>
-          CO-CO-BOB
+      <Typography variant="h2" className={classes.title}>
+        CO-CO-BOB
+      </Typography>
+      <Card className={classes.card} variant={'outlined'}>
+        <Typography className={classes.cardTitle} variant="h5">
+          계정 정보를 입력해주세요.
         </Typography>
         <Container>
           <form
-            id="login"
-            placeholder="Email"
+            id="register"
             autoComplete="off"
+            onSubmit={onSubmit}
             // onSubmit={onSubmit}
           >
             <TextField
+              placeholder="이메일 입력"
               name="username"
+              label="학교 이메일"
               value={signUpInfo.username}
               onChange={onChange}
               fullWidth
-              variant="outlined"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <PersonIcon />
-                  </InputAdornment>
-                ),
+              InputLabelProps={{
+                shrink: true,
               }}
+              helperText="@catholic.ac.kr을 제외한 학교 웹메일 아이디를 적어주세요."
+              className={classes.textInput}
             />
-            <TextField
-              name="password"
-              value={signUpInfo.password}
-              onChange={onChange}
-              fullWidth
-              variant="outlined"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LockIcon />
-                  </InputAdornment>
-                ),
-              }}
-              type="password"
-            />
+            <Box className={classes.passwordBox}>
+              <TextField
+                placeholder="비밀번호 입력"
+                name="password"
+                value={signUpInfo.password}
+                onChange={onChange}
+                fullWidth
+                type="password"
+                className={classes.textInput}
+              />
+
+              <TextField
+                error={checkPassword(passwordConfirm)}
+                placeholder="비밀번호 재입력"
+                name="passwordConfirm"
+                value={passwordConfirm}
+                onChange={onChange}
+                fullWidth
+                type="password"
+                className={classes.textInput}
+                helperText={
+                  checkPassword(passwordConfirm)
+                    ? '입력한 비밀번호와 일치하지 않습니다.'
+                    : null
+                }
+              />
+            </Box>
           </form>
-          <Container maxWidth="xl">
-            <FormControlLabel control={<Checkbox />} label="아이디 저장" />
-            <ButtonGroup variant="text">
-              <Button> 아이디 찾기 </Button>
-              <Button> 비밀번호 찾기 </Button>
-            </ButtonGroup>
-          </Container>
-          <Button type="submit" form="login" fullWidth>
-            로그인
-          </Button>
-          <Button fullWidth onClick={() => console.log(signUpInfo)}>
+          <Button
+            type="submit"
+            form="register"
+            fullWidth
+            className={classes.buttonSignUp}
+          >
             회원가입
           </Button>
         </Container>
