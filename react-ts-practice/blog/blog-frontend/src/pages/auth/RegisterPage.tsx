@@ -1,3 +1,5 @@
+import { useState, useCallback, FormEvent, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
@@ -8,11 +10,10 @@ import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { useState, useCallback, FormEvent, useEffect } from 'react';
 import { signUpData, signUpState } from '../../types/types';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { useDispatch } from 'react-redux';
 import { register } from '../../modules/auth/signUp';
+import ErrorMessage from '../../components/auth/ErrorMessage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -182,6 +183,9 @@ const RegisterPage = () => {
               />
             </Box>
           </form>
+          {error.error?.message === undefined && (
+            <ErrorMessage>{'회 원 가 입  실 패 !'}</ErrorMessage>
+          )}
           <Button
             type="submit"
             form="register"

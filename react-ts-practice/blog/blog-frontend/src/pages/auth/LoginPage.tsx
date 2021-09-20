@@ -1,4 +1,7 @@
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import clsx from 'clsx';
+import { useState, useCallback, FormEvent, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
@@ -15,13 +18,10 @@ import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
-import clsx from 'clsx';
-import { useState, useCallback, FormEvent, useEffect } from 'react';
 import { loginData, loginState } from '../../types/types';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { useDispatch } from 'react-redux';
 import { login } from '../../modules/auth/login';
-import { Link } from 'react-router-dom';
+import ErrorMessage from '../../components/auth/ErrorMessage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -99,7 +99,8 @@ const LoginPage = () => {
       history.push('/');
     }
     if (error !== null) {
-      if (error.error?.message !== undefined) alert(error.error?.message);
+      // if (error.error?.message !== undefined) alert(error.error?.message);
+      // setErrorMsg('로그인 실패!');
       console.log(error);
       return;
     }
@@ -157,6 +158,9 @@ const LoginPage = () => {
               type="password"
             />
           </form>
+          {error.error?.message !== undefined && (
+            <ErrorMessage>{'로 그 인 실 패 !'}</ErrorMessage>
+          )}
           <Box className={classes.authFindContainer}>
             <FormControlLabel control={<Checkbox />} label="아이디 저장" />
             <ButtonGroup variant="text">
