@@ -1,3 +1,5 @@
+import { useHistory } from 'react-router-dom';
+
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -87,18 +89,21 @@ const LoginPage = () => {
     dispatch(login(loginInfo));
   };
 
+  let history = useHistory();
+
   useEffect(() => {
     if (auth) {
       console.log('성공');
       console.log(data);
       console.log(error);
+      history.push('/');
     }
     if (error !== null) {
       if (error.error?.message !== undefined) alert(error.error?.message);
       console.log(error);
       return;
     }
-  }, [auth, error]);
+  }, [auth, error, history]);
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;

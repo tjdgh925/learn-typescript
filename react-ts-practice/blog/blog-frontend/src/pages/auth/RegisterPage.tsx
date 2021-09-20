@@ -1,4 +1,4 @@
-import { RouteComponentProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
@@ -80,6 +80,9 @@ const RegisterPage = () => {
     if (passwordConfirm === signUpInfo.password) return false;
     else return true;
   };
+
+  let history = useHistory();
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(e);
@@ -100,13 +103,14 @@ const RegisterPage = () => {
       console.log('성공');
       console.log(data);
       console.log(error);
+      history.push('/');
     }
     if (error !== null) {
       if (error.error?.message !== undefined) alert(error.error?.message);
       console.log(error);
       return;
     }
-  }, [auth, error]);
+  }, [auth, error, history]);
 
   const onChange = useCallback(
     (e) => {
@@ -162,7 +166,7 @@ const RegisterPage = () => {
               />
 
               <TextField
-                error={checkPassword(passwordConfirm)}
+                error={checkPassword(passwordConfirm) && passwordConfirm !== ''}
                 placeholder="비밀번호 재입력"
                 name="passwordConfirm"
                 value={passwordConfirm}
@@ -171,7 +175,7 @@ const RegisterPage = () => {
                 type="password"
                 className={classes.textInput}
                 helperText={
-                  checkPassword(passwordConfirm)
+                  checkPassword(passwordConfirm) && passwordConfirm !== ''
                     ? '입력한 비밀번호와 일치하지 않습니다.'
                     : null
                 }
