@@ -8,7 +8,7 @@ function logInAPI(loginData: loginData) {
 }
 function* tryLoginSaga(action: ReturnType<typeof login>) {
   try {
-    const userData: loginData = yield call(logInAPI, action.payload);
+    yield call(logInAPI, action.payload);
     yield put(loginSuccess(true));
   } catch (e: any) {
     yield put(loginFailure(e));

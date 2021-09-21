@@ -17,24 +17,13 @@ import ErrorMessage from '../../components/auth/ErrorMessage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      minWidth: '750px',
-      width: '50%',
-      height: '80vh',
-      margin: `${theme.spacing(0)} auto`,
-    },
+    container: {},
     title: {
       color: 'blue',
       alignSelf: 'center',
     },
     card: {
       marginTop: theme.spacing(10),
-      marginLeft: theme.spacing(10),
-      marginRight: theme.spacing(10),
       paddingTop: theme.spacing(5),
       paddingBottom: theme.spacing(5),
       border: '1px solid black',
@@ -102,17 +91,18 @@ const RegisterPage = () => {
   useEffect(() => {
     if (auth) {
       console.log('성공');
-      console.log(data);
-      console.log(error);
       history.push('/');
+      try {
+        localStorage.setItem('user', JSON.stringify(SignUpPageState));
+      } catch (e) {
+        console.log('local Storage not working');
+      }
     }
     if (error !== null) {
-      if (error.error?.message !== undefined) alert(error.error?.message);
       console.log(error);
       return;
     }
-  }, [auth, error, history]);
-
+  }, [auth, error, history, SignUpPageState]);
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;
@@ -183,7 +173,7 @@ const RegisterPage = () => {
               />
             </Box>
           </form>
-          {error.error?.message === undefined && (
+          {error.error?.message !== undefined && (
             <ErrorMessage>{'회 원 가 입  실 패 !'}</ErrorMessage>
           )}
           <Button

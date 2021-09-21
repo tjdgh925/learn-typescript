@@ -25,21 +25,9 @@ import ErrorMessage from '../../components/auth/ErrorMessage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      flexWrap: 'wrap',
-      textAlign: 'center',
-      justifyContent: 'center',
-      minWidth: '750px',
-      width: '50%',
-      height: '80vh',
-      margin: `${theme.spacing(0)} auto`,
-    },
+    container: {},
     card: {
       marginTop: theme.spacing(10),
-      marginLeft: theme.spacing(10),
-      marginRight: theme.spacing(10),
       border: 'none',
       boxShadow: 'none',
     },
@@ -74,9 +62,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const LoginPage = () => {
   const classes = useStyles();
   const LoginPageState: loginState = useTypedSelector((state) => state.login);
-  const data = LoginPageState.data;
-  const error = LoginPageState.error;
+  const user = useTypedSelector((state) => state.user);
+  const error = user.error;
   const auth = LoginPageState.auth;
+
   const dispatch = useDispatch();
   const [loginInfo, setLoginInfo] = useState<loginData>({
     username: '',
@@ -94,17 +83,18 @@ const LoginPage = () => {
   useEffect(() => {
     if (auth) {
       console.log('성공');
-      console.log(data);
-      console.log(error);
       history.push('/');
+      try {
+        localStorage.setItem('user', JSON.stringify(LoginPageState.data));
+      } catch (e) {
+        console.log('local Storage not working');
+      }
     }
     if (error !== null) {
-      // if (error.error?.message !== undefined) alert(error.error?.message);
-      // setErrorMsg('로그인 실패!');
       console.log(error);
       return;
     }
-  }, [auth, error, history]);
+  }, [auth, error, history, LoginPageState]);
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;
