@@ -8,7 +8,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { loginState } from '../../types/types';
-import { logout } from '../../modules/auth/user';
+import { logout } from '../../modules/auth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,8 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header = () => {
   const classes = useStyles();
-  const LoginPageState: loginState = useTypedSelector((state) => state.login);
-  const user = useTypedSelector((state) => state.user);
+  const LoginPageState: loginState = useTypedSelector((state) => state.auth);
   const data = LoginPageState.data;
   const auth = LoginPageState.auth;
   const dispatch = useDispatch();

@@ -4,22 +4,23 @@ import {
   getDefaultMiddleware,
 } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import loginReducer from './auth/login';
-import signUpReducer from './auth/signUp';
-import userReducer, { check } from './auth/user';
+import authReducer from './auth';
+import { check, tempSetUser } from './auth';
 import { all } from 'redux-saga/effects';
-import { loginSaga } from '../sagas/loginSaga';
-import { signUpSaga } from '../sagas/signUpSaga';
-import { userSaga } from '../sagas/userSaga';
+
+import { authSaga } from '../sagas/authSaga';
+import { loginData, signUpData } from '../types/types';
+
+const tempData: loginData | signUpData = JSON.parse(
+  localStorage.getItem('user') || '{}'
+);
 
 const rootReducer = combineReducers({
-  login: loginReducer,
-  singUp: signUpReducer,
-  user: userReducer,
+  auth: authReducer,
 });
 
 function* rootSaga() {
-  yield all([loginSaga(), signUpSaga(), userSaga()]);
+  yield all([authSaga()]);
 }
 const sagaMiddleware = createSagaMiddleware();
 
@@ -31,6 +32,7 @@ function loadUser() {
   try {
     const user: any = localStorage.getItem('user');
     if (!user) return;
+    store.dispatch(tempSetUser(tempData));
     store.dispatch(check());
   } catch (e) {
     console.log('error');

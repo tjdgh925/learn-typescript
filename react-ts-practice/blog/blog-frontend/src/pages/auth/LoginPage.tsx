@@ -20,7 +20,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 import { loginData, loginState } from '../../types/types';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { login } from '../../modules/auth/login';
+import { login } from '../../modules/auth';
 import ErrorMessage from '../../components/auth/ErrorMessage';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -61,9 +61,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const LoginPage = () => {
   const classes = useStyles();
-  const LoginPageState: loginState = useTypedSelector((state) => state.login);
-  const user = useTypedSelector((state) => state.user);
-  const error = user.error;
+  const LoginPageState: loginState = useTypedSelector((state) => state.auth);
+  const error = LoginPageState.error;
   const auth = LoginPageState.auth;
 
   const dispatch = useDispatch();

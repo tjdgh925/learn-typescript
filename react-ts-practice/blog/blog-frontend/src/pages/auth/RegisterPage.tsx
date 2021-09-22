@@ -12,7 +12,7 @@ import Box from '@material-ui/core/Box';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { signUpData, signUpState } from '../../types/types';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { register } from '../../modules/auth/signUp';
+import { register } from '../../modules/auth';
 import ErrorMessage from '../../components/auth/ErrorMessage';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -53,9 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
 // }
 const RegisterPage = () => {
   const classes = useStyles();
-  const SignUpPageState: signUpState = useTypedSelector(
-    (state) => state.singUp
-  );
+  const SignUpPageState: signUpState = useTypedSelector((state) => state.auth);
   const data = SignUpPageState.data;
   const error = SignUpPageState.error;
   const auth = SignUpPageState.auth;
