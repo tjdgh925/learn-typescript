@@ -1,7 +1,13 @@
+import Editor from '../../components/write/Editor';
+
 interface WritePageProps {}
 
 const WritePage = () => {
-  return <div>작성</div>;
+  return (
+    <div style={{ height: '100%' }}>
+      <Editor />
+    </div>
+  );
 };
 
 export default WritePage;
