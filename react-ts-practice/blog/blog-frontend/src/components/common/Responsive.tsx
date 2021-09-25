@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       flexWrap: 'wrap',
-      textAlign: 'center',
       justifyContent: 'center',
       height: '80vh',
       paddingLeft: theme.spacing(1),

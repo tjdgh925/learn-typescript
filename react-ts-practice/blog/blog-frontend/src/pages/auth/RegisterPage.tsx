@@ -17,7 +17,9 @@ import ErrorMessage from '../../components/auth/ErrorMessage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {},
+    container: {
+      textAlign: 'center',
+    },
     title: {
       color: 'blue',
       alignSelf: 'center',

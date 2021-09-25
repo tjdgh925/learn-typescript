@@ -4,11 +4,7 @@ import { useRef, useState, useMemo } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
