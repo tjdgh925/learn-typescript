@@ -27,3 +27,14 @@ export interface signUpState {
   auth: boolean | null;
   data: signUpData | null;
 }
+
+export interface postData {
+  title: string;
+  body: string;
+  tags: string[];
+}
+
+export interface postState {
+  error: errorData;
+  data: postData;
+}

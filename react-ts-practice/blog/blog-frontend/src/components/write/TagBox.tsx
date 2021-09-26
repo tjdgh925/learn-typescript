@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const TagBox = () => {
   const classes = useStyles();
-  const [tag, setTag] = useState<string>();
+  const [tag, setTag] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
 
   const onChange = useCallback(
