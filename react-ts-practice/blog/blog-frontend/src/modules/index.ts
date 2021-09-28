@@ -5,6 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import authReducer from './auth';
+import postReducer from './posts';
 import { check, tempSetUser } from './auth';
 import { all } from 'redux-saga/effects';
 
@@ -17,6 +18,7 @@ const tempData: loginData | signUpData = JSON.parse(
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  post: postReducer,
 });
 
 function* rootSaga() {
