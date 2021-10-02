@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
+import { useRef, useMemo, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { postData } from '../../types/types';
@@ -116,6 +116,7 @@ const Editor = () => {
         modules={modules}
         theme="bubble"
         placeholder="내용을 입력해주세요."
+        min-height={'100px'}
       />
     </Box>
   );

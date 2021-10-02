@@ -1,13 +1,12 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { postData } from '../../types/types';
+import { initialize, updatePost } from '../../modules/posts';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -40,12 +39,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const TagBox = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const postState: postData = useTypedSelector((state) => state.post.data);
+  const title = postState.title;
+  const body = postState.body;
+  const tags = postState.tags;
+  Object.preventExtensions(postState);
   const [tag, setTag] = useState<string>('');
-  const [tags, setTags] = useState<string[]>([]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(initialize());
+    };
+  }, [dispatch]);
 
   const onChange = useCallback(
     (e) => {
-      const { name, value } = e.target;
+      const { value } = e.target;
       setTag(value);
     },
     [tag]
@@ -53,19 +63,36 @@ const TagBox = () => {
 
   const onClick = useCallback(
     (e) => {
-      if (tag) tags.push(tag);
+      if (tag === '') return;
+      if (tags.includes(tag)) return;
+      const temp: string[] = [...tags, tag];
+      console.log(temp);
+      dispatch(
+        updatePost({
+          title: title,
+          body: body,
+          tags: temp,
+        })
+      );
       setTag('');
-      console.log(tags);
     },
-    [tag, tags]
+    [title, body, tags, tag]
   );
 
   const onRemove = useCallback(
     (e) => {
       const value = e.target.innerText;
-      setTags(tags.filter((tag) => tag !== value.substr(1)));
+      const temp = tags.filter((temp) => temp !== value.substr(1));
+
+      dispatch(
+        updatePost({
+          title: title,
+          body: body,
+          tags: temp,
+        })
+      );
     },
-    [tags]
+    [title, body, tags]
   );
 
   return (
@@ -88,7 +115,7 @@ const TagBox = () => {
       <Box className={classes.tagsContainer}>
         {tags.map((tag) => {
           return (
-            <Typography className={classes.tags} onClick={onRemove}>
+            <Typography className={classes.tags} onClick={onRemove} key={tag}>
               #{tag}
             </Typography>
           );
