@@ -37,4 +37,21 @@ export interface postData {
 export interface postState {
   error: errorData;
   data: postData;
+  success: PostSuccessData | null;
+}
+
+//
+export interface PostSuccessData {
+  title: string;
+  body: string;
+  tags: string[];
+  user: User;
+  _id: string;
+  publishedDate: Date | string;
+  __v: number;
+}
+
+export interface User {
+  _id: string;
+  username: string;
 }

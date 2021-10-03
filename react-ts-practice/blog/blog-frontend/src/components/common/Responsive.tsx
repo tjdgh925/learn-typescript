@@ -3,7 +3,6 @@ import Box from '@material-ui/core/Box';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React from 'react';
-import Header from './Header';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

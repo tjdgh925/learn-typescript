@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const RegisterPage = () => {
   const classes = useStyles();
   const SignUpPageState: signUpState = useTypedSelector((state) => state.auth);
-  const data = SignUpPageState.data;
+  // const data = SignUpPageState.data;
   const error = SignUpPageState.error;
   const auth = SignUpPageState.auth;
   const dispatch = useDispatch();
@@ -114,7 +114,7 @@ const RegisterPage = () => {
         [name]: value,
       });
     },
-    [signUpInfo, passwordConfirm]
+    [signUpInfo]
   );
   return (
     <Container className={classes.container}>

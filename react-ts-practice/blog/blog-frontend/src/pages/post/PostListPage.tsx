@@ -1,5 +1,4 @@
 import Button from '@material-ui/core/Button';
-interface PostListPageProps {}
 
 const PostListPage = () => {
   return (

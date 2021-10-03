@@ -10,6 +10,7 @@ import { check, tempSetUser } from './auth';
 import { all } from 'redux-saga/effects';
 
 import { authSaga } from '../sagas/authSaga';
+import { postSaga } from '../sagas/postSaga';
 import { loginData, signUpData } from '../types/types';
 
 const tempData: loginData | signUpData = JSON.parse(
@@ -22,7 +23,7 @@ const rootReducer = combineReducers({
 });
 
 function* rootSaga() {
-  yield all([authSaga()]);
+  yield all([authSaga(), postSaga()]);
 }
 const sagaMiddleware = createSagaMiddleware();
 

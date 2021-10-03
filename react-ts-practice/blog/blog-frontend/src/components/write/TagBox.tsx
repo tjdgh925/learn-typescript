@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { postData } from '../../types/types';
@@ -53,13 +53,10 @@ const TagBox = () => {
     };
   }, [dispatch]);
 
-  const onChange = useCallback(
-    (e) => {
-      const { value } = e.target;
-      setTag(value);
-    },
-    [tag]
-  );
+  const onChange = useCallback((e) => {
+    const { value } = e.target;
+    setTag(value);
+  }, []);
 
   const onClick = useCallback(
     (e) => {
@@ -76,7 +73,7 @@ const TagBox = () => {
       );
       setTag('');
     },
-    [title, body, tags, tag]
+    [title, body, tags, tag, dispatch]
   );
 
   const onRemove = useCallback(
@@ -92,7 +89,7 @@ const TagBox = () => {
         })
       );
     },
-    [title, body, tags]
+    [title, body, tags, dispatch]
   );
 
   return (

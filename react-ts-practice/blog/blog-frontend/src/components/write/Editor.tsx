@@ -69,7 +69,7 @@ const Editor = () => {
 
   const changeTitle = useCallback(
     (e) => {
-      const { name, value } = e.target;
+      const { value } = e.target;
       dispatch(
         updatePost({
           title: value,
@@ -78,7 +78,7 @@ const Editor = () => {
         })
       );
     },
-    [body, tags]
+    [body, tags, dispatch]
   );
 
   const changeBody = useCallback(
@@ -91,7 +91,7 @@ const Editor = () => {
         })
       );
     },
-    [title, tags]
+    [title, tags, dispatch]
   );
 
   return (

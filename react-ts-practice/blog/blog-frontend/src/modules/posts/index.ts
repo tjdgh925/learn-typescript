@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { postData, postState } from '../../types/types';
+import { postData, postState, PostSuccessData } from '../../types/types';
 
-interface changeProps {
-  key: string;
-  value: string | string[];
-}
 const initialData: postData = {
   title: '',
   body: '',
@@ -17,6 +13,7 @@ const initialState: postState = {
     error: null,
   },
   data: initialData,
+  success: null,
 };
 
 export const postSlice = createSlice({
@@ -29,9 +26,29 @@ export const postSlice = createSlice({
     updatePost(state, action: PayloadAction<postData>) {
       state.data = action.payload;
     },
+    writePost(state, action: PayloadAction<postData>) {
+      state.error.loading = true;
+      state.error.error = null;
+      state.data = action.payload;
+    },
+    writePostSuccess(state, action: PayloadAction<PostSuccessData>) {
+      state.error.loading = false;
+      state.error.error = null;
+      state.success = action.payload;
+    },
+    writePostFailure(state, action: PayloadAction<AxiosError>) {
+      state.error.loading = false;
+      state.error.error = action.payload;
+    },
   },
 });
 
-export const { initialize, updatePost } = postSlice.actions;
+export const {
+  initialize,
+  updatePost,
+  writePost,
+  writePostSuccess,
+  writePostFailure,
+} = postSlice.actions;
 
 export default postSlice.reducer;
