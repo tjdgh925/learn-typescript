@@ -93,7 +93,7 @@ const RegisterPage = () => {
       console.log('성공');
       history.push('/');
       try {
-        localStorage.setItem('user', JSON.stringify(SignUpPageState));
+        localStorage.setItem('user', JSON.stringify(SignUpPageState.data));
       } catch (e) {
         console.log('local Storage not working');
       }

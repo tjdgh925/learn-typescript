@@ -23,15 +23,15 @@ export interface loginState {
 }
 
 export interface signUpState {
-  error: errorData;
   auth: boolean | null;
+  error: errorData;
   data: signUpData | null;
 }
 
 export interface postData {
+  tags: string[];
   title: string;
   body: string;
-  tags: string[];
 }
 
 export interface postState {
