@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
@@ -21,7 +22,6 @@ const PostViewerContainer = ({ match }: RouteComponentProps<MatchParams>) => {
 
   useEffect(() => {
     dispatch(readPost(postId));
-    console.log(readPostState);
     return () => {
       dispatch(unloadPost());
     };

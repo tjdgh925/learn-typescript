@@ -8,6 +8,8 @@ export async function writePost({ title, body, tags }: postData) {
 }
 
 export async function readPost(id: string) {
-  const response = await client.get(`api/posts/${id}`);
+  const response = await client.get(`/api/posts/${id}`).then((response) => {
+    return response.data;
+  });
   return response;
 }

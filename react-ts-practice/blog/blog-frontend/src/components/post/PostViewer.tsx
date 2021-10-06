@@ -33,10 +33,13 @@ interface PostViewerProps {
 const PostViewer = ({ post, error, loading }: PostViewerProps) => {
   const classes = useStyles();
 
+  if (error) {
+    console.log(error.message);
+  }
   if (loading || !post) {
-    console.log(post);
     return null;
   }
+
   const date = new Date(post.publishedDate);
   const dateString = date.toLocaleDateString();
 
