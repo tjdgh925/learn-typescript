@@ -15,20 +15,6 @@ const initialState: postState = {
   data: initialData,
   success: null,
 };
-
-const fake: PostSuccessData = {
-  user: {
-    _id: '613dcaf87e539cde2312ac1d',
-    username: 'sunghoJang',
-  },
-  _id: '615b2ad0785ef1897512c397',
-  title: 'SSibal',
-  body: '<p>예러가 생길까</p><p><strong>BOLD</strong></p><p><br></p><p><strong><em>Italic</em></strong></p>',
-  tags: ['asd', '1111'],
-  publishedDate: '2021-10-04T16:24:48.160Z',
-  __v: 0,
-};
-
 export const postSlice = createSlice({
   name: 'post',
   initialState,
