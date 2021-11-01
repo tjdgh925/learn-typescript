@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,11 +20,12 @@ const PostList = () => {
 
   return (
     <Box className={classes.container}>
-      <Button className={classes.btn} variant={'contained'}>
-        새 글 작성하기
-      </Button>
+      <Link to="write">
+        <Button className={classes.btn} variant={'contained'}>
+          새 글 작성하기
+        </Button>
+      </Link>
     </Box>
   );
 };
-
 export default PostList;
