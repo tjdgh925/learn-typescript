@@ -1,4 +1,3 @@
-import Button from '@material-ui/core/Button';
 import PostList from '../../components/post/PostList';
 
 const PostListPage = () => {

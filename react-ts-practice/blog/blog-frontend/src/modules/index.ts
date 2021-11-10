@@ -27,6 +27,7 @@ const store = configureStore({
   reducer: rootReducer,
   middleware: [sagaMiddleware],
 });
+
 function loadUser() {
   try {
     const user: any = localStorage.getItem('user');
