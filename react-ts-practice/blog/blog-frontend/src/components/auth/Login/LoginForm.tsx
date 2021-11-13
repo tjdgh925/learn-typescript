@@ -7,16 +7,16 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 
-import { loginData, loginState } from '../../types/types';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import ErrorMessage from '../../components/auth/ErrorMessage';
+import { loginData } from '../../../types/types';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import ErrorMessage from '../../common/ErrorMessage';
 interface LoginFormProps {
   onChange: (e: any) => void;
   loginData: loginData;
 }
 
 const LoginForm = ({ onChange, loginData }: LoginFormProps) => {
-  const LoginPageState: loginState = useTypedSelector((state) => state.auth);
+  const LoginPageState = useTypedSelector((state) => state.auth);
   const error = LoginPageState.error;
 
   return (

@@ -52,7 +52,7 @@ export const authSlice = createSlice({
       state.error.error = action.payload;
       state.auth = false;
     },
-    tempSetUser(state, action: PayloadAction<loginData | signUpData>) {
+    tempSetUser(state, action: PayloadAction<loginData>) {
       state.error.loading = true;
       state.error.error = null;
       state.auth = null;

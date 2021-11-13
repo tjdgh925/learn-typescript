@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: `${theme.spacing(0)} auto`,
     },
     PC: {
-      width: '768px',
+      width: '770px',
     },
     Mobile: {
       width: '100%',

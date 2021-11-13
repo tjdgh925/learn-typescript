@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { loginState } from '../../types/types';
 import { logout } from '../../modules/auth';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header = () => {
   const classes = useStyles();
-  const LoginPageState: loginState = useTypedSelector((state) => state.auth);
+  const LoginPageState = useTypedSelector((state) => state.auth);
   const data = LoginPageState.data;
   const auth = LoginPageState.auth;
   const dispatch = useDispatch();

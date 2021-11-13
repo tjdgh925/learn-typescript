@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import authReducer from './auth';
 import postReducer from './posts';
+import postsListReducer from './postsList';
 import { check, tempSetUser } from './auth';
 import { all } from 'redux-saga/effects';
 
 import { authSaga } from '../sagas/authSaga';
+import { postsListSaga } from '../sagas/postsListSaga';
 import { postSaga } from '../sagas/postSaga';
 import { loginData, signUpData } from '../types/types';
 
@@ -16,10 +18,11 @@ const tempData: loginData | signUpData = JSON.parse(
 const rootReducer = combineReducers({
   auth: authReducer,
   post: postReducer,
+  postsList: postsListReducer,
 });
 
 function* rootSaga() {
-  yield all([authSaga(), postSaga()]);
+  yield all([authSaga(), postSaga(), postsListSaga()]);
 }
 const sagaMiddleware = createSagaMiddleware();
 

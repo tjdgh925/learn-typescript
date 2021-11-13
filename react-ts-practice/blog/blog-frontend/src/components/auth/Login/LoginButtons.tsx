@@ -1,17 +1,15 @@
-import { useHistory, Link } from 'react-router-dom';
-import clsx from 'clsx';
 import { useEffect } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-
+import clsx from 'clsx';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
-import { loginState } from '../../types/types';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
 interface LoginButtonsProps {
-  onSubmit: (e: any) => void;
+  onSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,27 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 const LoginButtons = ({ onSubmit }: LoginButtonsProps) => {
   const classes = useStyles();
-
-  const LoginPageState: loginState = useTypedSelector((state) => state.auth);
-  const error = LoginPageState.error;
-  const auth = LoginPageState.auth;
-
-  let history = useHistory();
-
-  useEffect(() => {
-    if (auth) {
-      history.push('/');
-      try {
-        localStorage.setItem('user', JSON.stringify(LoginPageState.data));
-      } catch (e) {
-        console.log('local Storage not working');
-      }
-    }
-    if (error !== null) {
-      console.log(error);
-      return;
-    }
-  }, [auth, error, history, LoginPageState]);
 
   return (
     <Box>

@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { PostSuccessData } from '../../types/types';
+import SubInfo from '../common/SubInfo';
+import Tags from '../common/Tags';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,30 +42,17 @@ const PostViewer = ({ post, error, loading }: PostViewerProps) => {
     return null;
   }
 
-  const date = new Date(post.publishedDate);
-  const dateString = date.toLocaleDateString();
-
   return (
     <Box className={classes.container}>
       <Box className={classes.postHeader}>
         <Typography variant="h1" className={classes.title}>
           {post.title}
         </Typography>
-        <Grid container className={classes.postInfo}>
-          <Grid item xs={2}>
-            {post.user.username}
-          </Grid>
-          <Grid item>{dateString}</Grid>
-        </Grid>
-        <Grid container className={classes.postInfo}>
-          {post.tags.map((tag) => {
-            return (
-              <Grid item xs={1} key={tag}>
-                #{tag}
-              </Grid>
-            );
-          })}
-        </Grid>
+        <SubInfo
+          username={post.user.username}
+          publishedDate={post.publishedDate}
+        />
+        <Tags tags={post.tags} />
       </Box>
       <Typography dangerouslySetInnerHTML={{ __html: post.body }} />
     </Box>

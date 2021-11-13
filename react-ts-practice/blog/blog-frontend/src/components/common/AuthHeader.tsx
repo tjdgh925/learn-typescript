@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const LoginHeader = () => {
+const AuthHeader = () => {
   const classes = useStyles();
 
   return (
@@ -24,4 +24,4 @@ const LoginHeader = () => {
   );
 };
 
-export default LoginHeader;
+export default AuthHeader;

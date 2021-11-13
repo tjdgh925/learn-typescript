@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,4 +75,4 @@ const WriteActionButtons = () => {
   );
 };
 
-export default WriteActionButtons;
+export default withRouter(WriteActionButtons);

@@ -1,9 +1,9 @@
-import PostList from '../../components/post/PostList';
+import PostListContainer from '../../container/PostListContainer';
 
 const PostListPage = () => {
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <PostList />
+      <PostListContainer />
     </div>
   );
 };

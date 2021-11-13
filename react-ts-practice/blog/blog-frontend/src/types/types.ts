@@ -6,9 +6,8 @@ export interface loginData {
 export interface signUpData {
   username: string;
   password: string;
-  // nickname: string;
-  // gender: any;
-  // birthday: Date | null;
+  birth: string;
+  sex: string;
 }
 
 export interface errorData {
@@ -40,7 +39,6 @@ export interface postState {
   success: PostSuccessData | null;
 }
 
-//
 export interface PostSuccessData {
   title: string;
   body: string;
@@ -55,3 +53,17 @@ export interface User {
   _id: string;
   username: string;
 }
+
+export interface postListData {
+  tag: any;
+  username: any;
+  page: any;
+}
+
+export interface postListState {
+  error: errorData;
+  data: postListData | null;
+  success: PostSuccessData[] | null;
+}
+
+//

@@ -12,12 +12,9 @@ import store from './modules/index';
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <GlobalStyle />
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
