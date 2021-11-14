@@ -3,35 +3,43 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
-import Card from '@material-ui/core/Card';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { signUpData } from '../../types/types';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { register } from '../../modules/auth';
 import ErrorMessage from '../../components/common/ErrorMessage';
 
 import AuthHeader from '../../components/common/AuthHeader';
-import RegisterHeader from '../../components/auth/Register/RegisterHeader';
 import RegisterForm from '../../components/auth/Register/RegisterForm';
 import RegisterButton from '../../components/auth/Register/RegisterButton';
+import styled from 'styled-components';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      textAlign: 'center',
-    },
-    card: {
-      marginTop: theme.spacing(10),
-      paddingTop: theme.spacing(5),
-      paddingBottom: theme.spacing(5),
-      border: '1px solid black',
-      boxShadow: 'none',
-    },
-  })
-);
+const RegisterBlock = styled.div`
+  position: absolute;
+  left: 0;
+  top: 8%;
+  bottom: 0;
+  right: 0;
+  // background: #e3e3e3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
+const RegisterBox = styled.div`
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  background: white;
+  border: #e3e3e3 2px solid;
+  padding: 3rem 7rem 5rem 7rem;
+  text-align: center;
+  border-radius: 20px;
+`;
+
+const Spacer = styled.div`
+  padding: 2rem;
+`;
 const RegisterPage = () => {
-  const classes = useStyles();
   let history = useHistory();
   const dispatch = useDispatch();
 
@@ -54,6 +62,18 @@ const RegisterPage = () => {
   };
 
   useEffect(() => {
+    if (birthday !== null) {
+      const temp =
+        parseInt(birthday.toISOString().slice(0, 10).replace(/-/g, '')) + 1;
+
+      setSignUpInfo({
+        ...signUpInfo,
+        birth: temp.toString(),
+      });
+    }
+  }, [birthday]);
+
+  useEffect(() => {
     if (auth) {
       console.log('성공');
       history.push('/');
@@ -71,11 +91,8 @@ const RegisterPage = () => {
 
   const onSubmit = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (birthday instanceof Date)
-        setSignUpInfo({
-          ...signUpInfo,
-          birth: birthday.toISOString().slice(0, 10).replace(/-/g, ''),
-        });
+      e.preventDefault();
+      console.log(signUpInfo);
       dispatch(register(signUpInfo));
     },
     [birthday, signUpInfo, dispatch]
@@ -97,26 +114,25 @@ const RegisterPage = () => {
   );
 
   return (
-    <Container className={classes.container}>
-      <AuthHeader />
-      <Card className={classes.card} variant={'outlined'}>
-        <RegisterHeader />
-        <Container>
-          <RegisterForm
-            signUpInfo={signUpInfo}
-            passwordConfirm={passwordConfirm}
-            onChange={onChange}
-            checkPassword={checkPassword}
-            birthday={birthday}
-            setBirthday={setBirthday}
-          />
-          {error.error?.message !== undefined && (
-            <ErrorMessage>{'회 원 가 입  실 패 !'}</ErrorMessage>
-          )}
-          <RegisterButton onSubmit={onSubmit} />
-        </Container>
-      </Card>
-    </Container>
+    <RegisterBlock>
+      <RegisterBox>
+        <AuthHeader />
+        <RegisterForm
+          signUpInfo={signUpInfo}
+          passwordConfirm={passwordConfirm}
+          onChange={onChange}
+          checkPassword={checkPassword}
+          birthday={birthday}
+          setBirthday={setBirthday}
+        />
+        {error.error?.message !== undefined ? (
+          <ErrorMessage>{'회 원 가 입  실 패 !'}</ErrorMessage>
+        ) : (
+          <Spacer />
+        )}
+        <RegisterButton onSubmit={onSubmit} />
+      </RegisterBox>
+    </RegisterBlock>
   );
 };
 

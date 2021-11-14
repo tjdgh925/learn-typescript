@@ -1,16 +1,73 @@
 import TextField from '@mui/material/TextField';
-import Box from '@material-ui/core/Box';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import DatePicker from '@mui/lab/DatePicker';
-
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { signUpData } from '../../../types/types';
+import styled from 'styled-components';
+
+const RegisterFormBlock = styled.div`
+  h3 {
+    margin: 0;
+    color: red;
+    padding-bottom: 4rem;
+  }
+`;
+const StyledInput = styled.input`
+  font-size: 1rem;
+  border: none;
+  border-bottom: 1.5px solid black;
+  outline: none;
+  width: 90%;
+  padding: 1rem;
+
+  line &:focus {
+    color: $oc-teal-7;
+    border-bottom: 1px solid blue;
+  }
+  :placeholder {
+    margin-left: 30px;
+  }
+  & + & {
+    margin-top: 1.5rem;
+  }
+`;
+const Spacer = styled.div`
+  padding: 1.5rem;
+`;
+
+const PasswordError = styled.div`
+  h4 {
+    color: red;
+  }
+`;
+
+const BirthGenderBlock = styled.div`
+  display: flex;
+`;
+
+const RadioContainer = styled.div`
+  display: flex;
+  border: #e3e3e3 2px solid;
+  border-radius: 10px;
+  height: 100%;
+  justify-content: space-between;
+  padding: 1rem 0 1rem 0;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-weight: 700;
+    padding-right: 10px;
+  }
+`;
+
+const Label = styled.label`
+  width: 40px;
+`;
+
+const RadioButton = styled.input.attrs({
+  type: 'radio',
+})``;
 
 interface RegisterFormProps {
   signUpInfo: signUpData;
@@ -20,29 +77,6 @@ interface RegisterFormProps {
   onChange: (e: any) => void;
   checkPassword: (passwordConfirm: string) => boolean;
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    textInput: {
-      paddingBottom: theme.spacing(2),
-    },
-    passwordBox: {
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(3),
-    },
-    birthGender: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      paddingBottom: theme.spacing(3),
-    },
-    genderLabel: {
-      paddingLeft: theme.spacing(1),
-      textAlign: 'left',
-    },
-  })
-);
-
 const RegisterForm = ({
   signUpInfo,
   passwordConfirm,
@@ -51,84 +85,59 @@ const RegisterForm = ({
   birthday,
   setBirthday,
 }: RegisterFormProps) => {
-  const classes = useStyles();
-
   return (
-    <form id="register" autoComplete="off">
-      <TextField
-        placeholder="이메일 입력"
-        name="email"
-        label="학교 이메일"
-        value={signUpInfo.username}
-        onChange={onChange}
-        fullWidth
-        InputLabelProps={{
-          shrink: true,
-        }}
-        helperText="@catholic.ac.kr을 제외한 학교 웹메일 아이디를 적어주세요."
-        className={classes.textInput}
-      />
-      <Box className={classes.passwordBox}>
-        <TextField
+    <RegisterFormBlock>
+      <h3> 계정 정보를 입력해주세요.</h3>
+      <form id="register" autoComplete="off">
+        <StyledInput
+          placeholder="이메일 입력"
+          name="email"
+          value={signUpInfo.username}
+          onChange={onChange}
+        />
+        <Spacer />
+        <StyledInput
           placeholder="비밀번호 입력"
           name="password"
           value={signUpInfo.password}
           onChange={onChange}
-          fullWidth
           type="password"
-          className={classes.textInput}
         />
-
-        <TextField
-          error={checkPassword(passwordConfirm) && passwordConfirm !== ''}
+        <StyledInput
           placeholder="비밀번호 재입력"
           name="passwordConfirm"
           value={passwordConfirm}
           onChange={onChange}
-          fullWidth
           type="password"
-          className={classes.textInput}
-          helperText={
-            checkPassword(passwordConfirm) && passwordConfirm !== ''
-              ? '입력한 비밀번호와 일치하지 않습니다.'
-              : null
-          }
         />
-      </Box>
-
-      <Box className={classes.birthGender}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DatePicker
-            label="생일"
-            value={birthday}
-            onChange={(date) => {
-              setBirthday(date);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
-
-        <FormControl component="fieldset">
-          <FormLabel className={classes.genderLabel} component="legend">
-            Gender
-          </FormLabel>
-          <RadioGroup
-            row
-            aria-label="sex"
-            name="sex"
-            value={signUpInfo.sex}
-            onChange={onChange}
-          >
-            <FormControlLabel
-              value="female"
-              control={<Radio />}
-              label="Female"
+        {checkPassword(passwordConfirm) && passwordConfirm !== '' ? (
+          <PasswordError>
+            <h4>비밀번호 불일치!</h4>
+          </PasswordError>
+        ) : (
+          <Spacer />
+        )}
+        <BirthGenderBlock>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              label="생일"
+              value={birthday}
+              onChange={(date) => {
+                setBirthday(date);
+              }}
+              renderInput={(params) => <TextField {...params} />}
             />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-          </RadioGroup>
-        </FormControl>
-      </Box>
-    </form>
+          </LocalizationProvider>
+          <RadioContainer>
+            <span>성별</span>
+            <Label>남자</Label>
+            <RadioButton value="male" name="sex" onChange={onChange} />
+            <Label>여자</Label>
+            <RadioButton value="female" name="sex" onChange={onChange} />
+          </RadioContainer>
+        </BirthGenderBlock>
+      </form>
+    </RegisterFormBlock>
   );
 };
 

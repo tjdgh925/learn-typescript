@@ -79,7 +79,7 @@ export const check = async (ctx) => {
     ctx.status = 401;
     return;
   }
-  ctx.body = user;
+  ctx.body = ctx;
 };
 
 export const logout = async (ctx) => {

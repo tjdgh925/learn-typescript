@@ -1,25 +1,20 @@
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import React from 'react';
+import styled from 'styled-components';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    errorMsg: {
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-      color: 'red',
-      textAlign: 'center',
-    },
-  })
-);
+const ErrorMessageText = styled.h2`
+  color: red;
+  text-align: center;
+  font-size: 0.875rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+`;
 
 interface Props {
   children: React.ReactChild;
 }
 
 const ErrorMessage = ({ children }: Props) => {
-  const classes = useStyles();
-  return <Typography className={classes.errorMsg}>{children}</Typography>;
+  return <ErrorMessageText>{children}</ErrorMessageText>;
 };
 
 export default ErrorMessage;

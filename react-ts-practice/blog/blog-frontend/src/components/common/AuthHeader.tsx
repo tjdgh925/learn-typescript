@@ -1,26 +1,33 @@
 import { Link } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
+import styled from 'styled-components';
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+const AuthHeaderBlock = styled.div`
+  padding-bottom: 2rem;
+`;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    header: {
-      color: 'blue',
-      marginBottom: theme.spacing(8),
-    },
-  })
-);
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
+
+const AuthHeaderText = styled.h2`
+  color: blue;
+  text-decoration: none;
+`;
 
 const AuthHeader = () => {
-  const classes = useStyles();
-
   return (
-    <Link to="/">
-      <Typography variant="h2" className={classes.header}>
-        CO-CO-BOB
-      </Typography>
-    </Link>
+    <AuthHeaderBlock>
+      <StyledLink to="/">
+        <AuthHeaderText>CO-CO-BOB</AuthHeaderText>
+      </StyledLink>
+    </AuthHeaderBlock>
   );
 };
 

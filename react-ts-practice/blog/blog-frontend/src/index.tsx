@@ -9,6 +9,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './modules/index';
+import { CssBaseline } from '@material-ui/core';
 
 ReactDOM.render(
   <Provider store={store}>

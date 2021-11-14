@@ -1,35 +1,65 @@
-import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+const LoginFooterBlock = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 3rem;
+`;
 
-import Checkbox from '@material-ui/core/Checkbox';
+const CheckBoxBlock = styled.div`
+  display: flex;
+`;
 
-import Box from '@material-ui/core/Box';
+const Checkbox = styled.input.attrs({
+  type: 'checkbox',
+})`
+  border-radius: 5px;
+  color: red;
+  & + span {
+    padding-left: 0.5rem;
+  }
+`;
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+const FindBlock = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+  & + & {
+    padding-left: 1rem;
+  }
+`;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    authFindContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingTop: theme.spacing(2),
-      paddingLeft: theme.spacing(1),
-    },
-  })
-);
 const LoginFooter = () => {
-  const classes = useStyles();
+  const [check, setCheck] = useState<boolean>(false);
   return (
-    <Box className={classes.authFindContainer}>
-      <FormControlLabel control={<Checkbox />} label="아이디 저장" />
-      <ButtonGroup variant="text">
-        <Button> 아이디 찾기 </Button>
-        <Button> 비밀번호 찾기 </Button>
-      </ButtonGroup>
-    </Box>
+    <LoginFooterBlock>
+      <CheckBoxBlock>
+        <Checkbox
+          checked={check}
+          onClick={() => {
+            setCheck((check) => !check);
+          }}
+        />
+        <span>아이디 저장</span>
+      </CheckBoxBlock>
+      <FindBlock>
+        <StyledLink to="/">아이디 찾기</StyledLink>
+        <StyledLink to="/">비밀번호 찾기</StyledLink>
+      </FindBlock>
+    </LoginFooterBlock>
   );
 };
 

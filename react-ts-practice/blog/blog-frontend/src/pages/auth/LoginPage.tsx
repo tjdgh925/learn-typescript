@@ -1,10 +1,4 @@
-import Container from '@material-ui/core/Container';
-
-import Card from '@material-ui/core/Card';
-
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-
-import LoginHeader from '../../components/common/AuthHeader';
+import AuthHeader from '../../components/common/AuthHeader';
 import LoginForm from '../../components/auth/Login/LoginForm';
 import LoginFooter from '../../components/auth/Login/LoginFooter';
 import LoginButtons from '../../components/auth/Login/LoginButtons';
@@ -14,23 +8,33 @@ import { loginData } from '../../types/types';
 import { login } from '../../modules/auth';
 import { useHistory, withRouter } from 'react-router-dom';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import styled from 'styled-components';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      textAlign: 'center',
-    },
-    card: {
-      marginTop: theme.spacing(10),
-      border: 'none',
-      boxShadow: 'none',
-    },
-  })
-);
+const LoginBlock = styled.div`
+  position: absolute;
+  left: 0;
+  top: 8%;
+  bottom: 0;
+  right: 0;
+  // background: #e3e3e3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LoginBox = styled.div`
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  background: white;
+  border: #e3e3e3 2px solid;
+  padding: 3rem 7rem 5rem 7rem;
+  text-align: center;
+  border-radius: 20px;
+`;
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const classes = useStyles();
   let history = useHistory();
 
   const LoginPageState = useTypedSelector((state) => state.auth);
@@ -74,17 +78,17 @@ const LoginPage = () => {
       console.log(error);
       return;
     }
-  }, [auth, error, history, LoginPageState]);
+  }, [auth, error, history, LoginPageState, loginInfo.username]);
 
   return (
-    <Container className={classes.container}>
-      <Card className={classes.card}>
-        <LoginHeader />
+    <LoginBlock>
+      <LoginBox>
+        <AuthHeader />
         <LoginForm onChange={onChange} loginData={loginInfo} />
         <LoginFooter />
         <LoginButtons onSubmit={onSubmit} />
-      </Card>
-    </Container>
+      </LoginBox>
+    </LoginBlock>
   );
 };
 
