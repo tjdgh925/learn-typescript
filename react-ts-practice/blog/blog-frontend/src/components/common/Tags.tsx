@@ -1,16 +1,22 @@
-import { Box, Typography } from '@material-ui/core';
+import styled from 'styled-components';
 
 interface TagsProps {
   tags: string[];
 }
+const TagBlock = styled.div`
+  display: flex;
+  & + & {
+    padding-left: 1rem;
+  }
+`;
 
 const Tags = ({ tags }: TagsProps) => {
   return (
-    <Box>
+    <TagBlock>
       {tags.map((tag) => {
-        return <Typography key={tag}>#{tag}</Typography>;
+        return <span key={tag}>#{tag}&nbsp;&nbsp;</span>;
       })}
-    </Box>
+    </TagBlock>
   );
 };
 

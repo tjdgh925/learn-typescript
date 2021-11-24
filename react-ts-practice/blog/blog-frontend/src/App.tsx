@@ -6,18 +6,19 @@ import RegisterPage from './pages/auth/RegisterPage';
 import WritePage from './pages/post/WritePage';
 import PostPage from './pages/post/PostPage';
 import Responsive from './components/common/Responsive';
-import Header from './components/common/Header';
+
+import HeaderTab from './components/common/HeaderTab';
 
 function App() {
   return (
     <>
-      <Header />
+      <HeaderTab />
       <Responsive>
         <Route component={PostListPage} path={['/@:username', '/']} exact />
         <Route component={LoginPage} path="/login" exact />
         <Route component={RegisterPage} path="/register" exact />
         <Route component={WritePage} path="/write" exact />
-        <Route component={PostPage} path="/@:username/:postId" exact />
+        <Route component={PostPage} path="/post/:postId" exact />
       </Responsive>
     </>
   );

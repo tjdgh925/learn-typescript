@@ -49,6 +49,15 @@ export interface PostSuccessData {
   __v: number;
 }
 
+export interface testData {
+  id: number;
+  title: string;
+  username: string;
+  tag: string;
+  contents: string;
+  deadline: string;
+}
+
 export interface User {
   _id: string;
   username: string;
@@ -63,7 +72,7 @@ export interface postListData {
 export interface postListState {
   error: errorData;
   data: postListData | null;
-  success: PostSuccessData[] | null;
+  success: testData[] | null;
 }
 
 //

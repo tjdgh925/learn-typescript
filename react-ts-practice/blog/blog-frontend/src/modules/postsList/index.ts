@@ -4,6 +4,7 @@ import {
   postListState,
   postListData,
   PostSuccessData,
+  testData,
 } from '../../types/types';
 
 const initialState: postListState = {
@@ -18,24 +19,43 @@ export const postsListSlice = createSlice({
   name: 'postsList',
   initialState,
   reducers: {
-    postsList(state, action: PayloadAction<postListData>) {
+    // postsList(state, action: PayloadAction<postListData>) {
+    //   state.error.loading = true;
+    //   state.error.error = null;
+    //   state.data = action.payload;
+    // },
+    // postsListSuccess(state, action: PayloadAction<PostSuccessData[]>) {
+    //   state.error.loading = false;
+    //   state.error.error = null;
+    //   state.success = action.payload;
+    // },
+    // postsListFailure(state, action: PayloadAction<AxiosError>) {
+    //   state.error.loading = false;
+    //   state.error.error = action.payload;
+    // },
+    postAll(state) {
       state.error.loading = true;
       state.error.error = null;
-      state.data = action.payload;
     },
-    postsListSuccess(state, action: PayloadAction<PostSuccessData[]>) {
+    postAllSuccess(state, action: PayloadAction<testData[]>) {
       state.error.loading = false;
       state.error.error = null;
       state.success = action.payload;
     },
-    postsListFailure(state, action: PayloadAction<AxiosError>) {
+    postAllFailure(state, action: PayloadAction<AxiosError>) {
       state.error.loading = false;
       state.error.error = action.payload;
     },
   },
 });
 
-export const { postsList, postsListSuccess, postsListFailure } =
-  postsListSlice.actions;
+export const {
+  // postsList,
+  // postsListSuccess,
+  // postsListFailure,
+  postAll,
+  postAllSuccess,
+  postAllFailure,
+} = postsListSlice.actions;
 
 export default postsListSlice.reducer;

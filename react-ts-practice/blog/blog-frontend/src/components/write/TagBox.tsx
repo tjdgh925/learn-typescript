@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       display: 'flex',
       flexDirection: 'column',
+      marginTop: '2rem',
     },
     header: {
       paddingLeft: theme.spacing(1),

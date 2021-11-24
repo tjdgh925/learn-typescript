@@ -1,15 +1,20 @@
 import Editor from '../../components/write/Editor';
-
-import TagBox from '../../components/write/TagBox';
 import WriteActionButtons from '../../components/write/WriteActionButtons';
+import styled from 'styled-components';
+
+const WritePageBlock = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
 
 const WritePage = () => {
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <WritePageBlock>
       <Editor />
-      <TagBox />
       <WriteActionButtons />
-    </div>
+    </WritePageBlock>
   );
 };
 

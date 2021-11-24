@@ -4,7 +4,7 @@ import { RouteComponentProps, withRouter, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import PostList from '../components/post/PostList';
-import { postsList } from '../modules/postsList';
+import { postAll } from '../modules/postsList';
 import { postListState } from '../types/types';
 
 interface MatchParams {
@@ -31,7 +31,8 @@ const PostListContainer = ({ match }: RouteComponentProps<MatchParams>) => {
     ignoreQueryPrefix: true,
   });
   useEffect(() => {
-    dispatch(postsList({ tag, username, page }));
+    // dispatch(postsList({ tag, username, page }));
+    dispatch(postAll());
   }, [dispatch, location.search]);
 
   return (
@@ -39,7 +40,7 @@ const PostListContainer = ({ match }: RouteComponentProps<MatchParams>) => {
       loading={loading}
       error={error}
       posts={posts}
-      showWriteButtons={user}
+      // showWriteButtons={user}
     />
   );
 };

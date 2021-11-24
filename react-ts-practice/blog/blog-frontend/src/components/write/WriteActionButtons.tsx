@@ -5,11 +5,23 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { postState } from '../../types/types';
 import { writePost } from '../../modules/posts';
 
-import Button from '@material-ui/core/Button';
+import Button from '../../components/common/Button';
 import Box from '@material-ui/core/Box';
 
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
+
+const ButtonBlock = styled.div`
+  width: 90%;
+  justify-content: end;
+  margin-top: 2rem;
+  display: flex;
+  Button + Button {
+    margin-left: 1rem;
+  }
+`;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const WriteActionButtons = () => {
-  const classes = useStyles();
   let history = useHistory();
   const dispatch = useDispatch();
   const postState: postState = useTypedSelector((state) => state.post);
@@ -35,7 +46,18 @@ const WriteActionButtons = () => {
   const tags = postState.data.tags;
   const error = postState.error;
 
-  const onPublish = () => {
+  async function onPublish() {
+    var user = JSON.parse(localStorage.getItem('user') || '');
+    const date = new Date().toLocaleDateString();
+    console.log(user.username);
+    const response = await axios.post('/api/boards', {
+      title: title,
+      username: user.username,
+      contents: body,
+      tag: tags.toString(),
+      deadline: date,
+    });
+    console.log(response);
     dispatch(
       writePost({
         title,
@@ -43,7 +65,7 @@ const WriteActionButtons = () => {
         tags,
       })
     );
-  };
+  }
 
   const onCancel = () => {
     history.goBack();
@@ -52,26 +74,17 @@ const WriteActionButtons = () => {
   useEffect(() => {
     if (post !== null) {
       const { _id, user } = post;
-      history.push(`/@${user.username}/${_id}`);
+      history.push(`/`);
     }
     if (error) {
       console.log(error);
     }
   }, [post, history, error]);
   return (
-    <Box className={classes.container}>
-      <Button
-        className={classes.button}
-        variant="contained"
-        color="secondary"
-        onClick={onPublish}
-      >
-        포스트 등록
-      </Button>
-      <Button className={classes.button} variant="contained" onClick={onCancel}>
-        포스트 취소
-      </Button>
-    </Box>
+    <ButtonBlock>
+      <Button onClick={onPublish}>포스트 등록</Button>
+      <Button onClick={onCancel}>포스트 취소</Button>
+    </ButtonBlock>
   );
 };
 

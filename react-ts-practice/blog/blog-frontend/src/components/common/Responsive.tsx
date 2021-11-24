@@ -1,48 +1,23 @@
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Box from '@material-ui/core/Box';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import React from 'react';
+import React, { ReactChild } from 'react';
+import styled from 'styled-components';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    responsive: {
-      display: 'flex',
-      flexDirection: 'column',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      height: '80vh',
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-
-      margin: `${theme.spacing(0)} auto`,
-    },
-    PC: {
-      width: '770px',
-    },
-    Mobile: {
-      width: '100%',
-    },
-  })
-);
-interface ResponsiveProps {
-  children: React.ReactNode;
+const ResponsiveBlock = styled.div`
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 1024px;
+  margin: 0 auto;
+  @media (max-width: 1024px) {
+    width: 768px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+interface ResponsiveProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: ReactChild[];
 }
-
-const Responsive = ({ children }: ResponsiveProps) => {
-  const matches = useMediaQuery('(min-width: 1024px)');
-  const classes = useStyles();
-
-  return (
-    <Box
-      className={clsx(
-        classes.responsive,
-        matches ? classes.PC : classes.Mobile
-      )}
-    >
-      {children}
-    </Box>
-  );
+const Responsive = ({ children, ...rest }: ResponsiveProps) => {
+  return <ResponsiveBlock {...rest}>{children}</ResponsiveBlock>;
 };
 
 export default Responsive;

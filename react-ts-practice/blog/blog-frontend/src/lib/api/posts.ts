@@ -24,3 +24,10 @@ export async function postsList({ page, username, tag }: postListData) {
     });
   return response;
 }
+
+export async function postAll() {
+  const response = await client.get('/api/boards').then((response) => {
+    return response;
+  });
+  return response;
+}

@@ -16,7 +16,6 @@ const LoginBlock = styled.div`
   top: 8%;
   bottom: 0;
   right: 0;
-  // background: #e3e3e3;
   display: flex;
   flex-direction: column;
   justify-content: center;
