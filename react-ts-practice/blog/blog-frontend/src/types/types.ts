@@ -72,7 +72,7 @@ export interface postListData {
 export interface postListState {
   error: errorData;
   data: postListData | null;
-  success: testData[] | null;
+  success: PostSuccessData[] | null;
 }
 
 //
